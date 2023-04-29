@@ -11,6 +11,8 @@ const App = () => {
         return ["Toronto", "Montreal", "Vancouver"];
       case "UK":
         return ["London", "Manchester", "Birmingham"];
+      case "Pakistan":
+        return ["Islamabad", "Lahore", "Karachi"];
       default:
         return [];
     }
@@ -45,6 +47,17 @@ const App = () => {
 
   console.log(weatherData);
 
+  const buttonClickHandler = () => {
+    setSelectedCity("");
+    setSelectedCountry("");
+    setWeatherData("");
+  };
+
+  // const Temperature = "";
+  const temperature = weatherData ? weatherData.main.temp - 273.15 : "";
+
+  const limitTemperature = temperature ? temperature.toFixed(2) : "";
+
   return (
     <div className="layout">
       <div className="card">
@@ -52,18 +65,19 @@ const App = () => {
         <div className="content">
           <div className="select">
             <label htmlFor="country-select">Select a country:</label>
-            <select id="country-select" onChange={handleCountryChange}>
+            <select id="country-select" value={selectedCountry} onChange={handleCountryChange}>
               <option value="">Select a country</option>
               <option value="USA">USA</option>
               <option value="Canada">Canada</option>
               <option value="UK">UK</option>
+              <option value="Pakistan">Pakistan</option>
             </select>
           </div>
           {selectedCountry && (
             <div className="select">
               <label htmlFor="city-select">Select a city:</label>
               <select id="city-select" onChange={handleCityChange}>
-                <option value="">Select a city</option>
+                <option value={selectedCity}>Select a city</option>
                 {getCitiesForCountry(selectedCountry).map((city) => (
                   <option key={city} value={city}>
                     {city}
@@ -76,10 +90,9 @@ const App = () => {
         {weatherData && (
           <div className="weather">
             <h2>Weather in {selectedCity}</h2>
-            <p>Temperature: {weatherData.main.temp}</p>
-            <p>Humidity: {weatherData.weather[0].icon}</p>
+            <p>Temperature: {limitTemperature} C</p>
             <img
-              src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}
+              src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@4x.png`}
               alt="Image"
             />
             {/* {weatherData && weatherData.weather && weatherData.weather[0] && (
@@ -88,6 +101,7 @@ const App = () => {
               alt="Image"
             />
           )} */}
+            <button onClick={buttonClickHandler}>Try Again</button>
           </div>
         )}
       </div>
