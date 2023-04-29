@@ -76,8 +76,8 @@ const App = () => {
           {selectedCountry && (
             <div className="select">
               <label htmlFor="city-select">Select a city:</label>
-              <select id="city-select" onChange={handleCityChange}>
-                <option value={selectedCity}>Select a city</option>
+              <select id="city-select" value={selectedCity} onChange={handleCityChange}>
+                <option value="">Select a city</option>
                 {getCitiesForCountry(selectedCountry).map((city) => (
                   <option key={city} value={city}>
                     {city}
