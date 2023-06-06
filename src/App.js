@@ -7,6 +7,7 @@ const App = () => {
 
   const handleTextChange = (event) => {
     setEnteredText(event.target.value);
+    //setEnteredText(event.target.value);
   };
   const handleAgeChange = (event) => {
     setEnteredAge(event.target.value);
